@@ -1,3 +1,17 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 use std::path::PathBuf;
 use std::pin::Pin;
 use std::time::UNIX_EPOCH;
@@ -45,7 +59,10 @@ impl VirtualFile for CommitTreeFile {
             RepoPathBuf::from_relative_path(&self.path).map_err(|_| JjError::InvalidPath)?;
         let merged_val = self.commit.tree().path_value(&repo_path).await?;
 
-        let resolved_val = merged_val.as_resolved().ok_or(JjError::NotADirectory)?; // TODO: Files with conflicts should also be readable
+        let resolved_val = merged_val.as_resolved().ok_or(JjError::NotADirectory)?; // TODO: Files
+        // with conflicts
+        // should also
+        // be readable
         let file_id = match resolved_val {
             Some(TreeValue::File { id, .. }) => id,
             None => return Err(JjError::NotFound),
@@ -99,7 +116,8 @@ impl VirtualFile for CommitTreeFile {
                     file_type,
                 }
             })
-            .collect(); // TODO: No proper pagination here, since the entire iterator needs to be collected
+            .collect(); // TODO: No proper pagination here, since the entire iterator needs to be
+        // collected
 
         Ok(Box::pin(futures::stream::iter(files)))
     }

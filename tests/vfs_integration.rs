@@ -1,15 +1,23 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 use std::path::Path;
 use std::sync::Arc;
 
 use jj_lib::object_id::ObjectId as _;
 use jjfsd::path_mapper_all_commits::AllCommitsPathMapper;
-// TODO: For simplicity in this PoC, we compile test_helpers directly using a
-// path attribute. A cleaner, long-term solution would be to define a
-// `test-helpers` Cargo feature in the library crate, make `tempfile` and
-// `pollster` optional dependencies, and import `jjfsd` with the `test-helpers`
-// feature enabled in `[dev-dependencies]`.
-#[path = "../src/test_helpers.rs"]
-mod test_helpers;
+use jjfsd::test_helpers;
 use jjfsd::vfs::PathMappedVfs;
 use jjfsd::vfs::VirtualFilesystem;
 use jjfsd::virtual_file::FileType;
